@@ -1,0 +1,13 @@
+//GUI
+npx cypress open
+
+
+//BEZ GUI
+npx cypress run
+
+
+//BACKEND
+nodemon index.js
+
+//FRONTEND
+npm run dev
