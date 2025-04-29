@@ -1,13 +1,15 @@
 //GUI
+cd e2e
 npx cypress open
 
-
 //BEZ GUI
+cd e2e
 npx cypress run
 
-
 //BACKEND
+cd backend
 nodemon index.js
 
 //FRONTEND
+cd frontend
 npm run dev
