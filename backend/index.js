@@ -1,10 +1,25 @@
 const express = require('express');
 const cors = require('cors');
-const users = require('./users');
+const sequelize = require('./sequelizeInstance'); 
+const Korisnik = require('./models/Korisnik');
+const KorisnikRouter = require('./routes/KorisnikRouter'); 
 
 const app = express();
 const PORT = 5000;
 
+
+(async () => {
+    try {
+        await sequelize.authenticate();
+        console.log('Konekcija s SQLite bazom je uspješna.');
+        await sequelize.query('PRAGMA foreign_keys = ON;');
+        await sequelize.sync({ force: false }); // Onemogućeno automatsko ažuriranje
+        console.log('Baza sinhronizovana.');
+    } catch (error) {
+        console.error('Greška pri konekciji s bazom:', error);
+        process.exit(1);
+    }
+})();
 
 const corsOptions = {
     origin: ['http://localhost:5173'],
@@ -16,30 +31,13 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// Register ruta
-app.post('/api/register', (req, res) => {
-  const { email, password } = req.body;
+app.use('/server/korisnik', KorisnikRouter);
 
-  // Provjeri postoji li već korisnik
-  if (users.find(user => user.email === email)) {
-    return res.status(400).json({ message: 'User already exists' });
-  }
 
-  users.push({ email, password });
-  return res.json({ message: 'Registration successful' });
-});
-
-// Login ruta
-app.post('/api/login', (req, res) => {
-  const { email, password } = req.body;
-
-  const user = users.find(user => user.email === email && user.password === password);
-  if (!user) {
-    return res.status(401).json({ message: 'Invalid credentials' });
-  }
-
-  return res.json({ message: 'Login successful', token: 'fake-jwt-token' });
-});
+app.use("/" , (req, res) => {
+    res.status(200).json({ message: "Server radi!" });
+}
+);
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
