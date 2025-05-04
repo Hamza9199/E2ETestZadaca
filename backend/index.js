@@ -1,31 +1,43 @@
 const express = require('express');
 const cors = require('cors');
-const sequelize = require('./sequelizeInstance'); 
+const sequelize = require('./sequelizeInstance');
 const Korisnik = require('./models/Korisnik');
-const KorisnikRouter = require('./routes/KorisnikRouter'); 
+const KorisnikRouter = require('./routes/KorisnikRouter');
 
 const app = express();
 const PORT = 5000;
 
-
+/*
 (async () => {
     try {
         await sequelize.authenticate();
         console.log('Konekcija s SQLite bazom je uspješna.');
         await sequelize.query('PRAGMA foreign_keys = ON;');
-        await sequelize.sync({ force: false }); // Onemogućeno automatsko ažuriranje
-        console.log('Baza sinhronizovana.');
-    } catch (error) {
+        await sequelize.sync({ force: false }); // Onemogućeno automatsko
+ažuriranje console.log('Baza sinhronizovana.'); } catch (error) {
         console.error('Greška pri konekciji s bazom:', error);
         process.exit(1);
     }
 })();
+*/
+
+(async () => {
+  try {
+    await sequelize.authenticate();
+    console.log('Konekcija s MySQL bazom je uspješna.');
+    await sequelize.sync({alter : true}); // Sinhronizacija modela s bazom
+    console.log('Baza sinhronizovana.');
+  } catch (error) {
+    console.error('Greška pri konekciji s bazom:', error);
+    process.exit(1);
+  }
+})();
 
 const corsOptions = {
-    origin: ['http://localhost:5173'],
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
-    optionsSuccessStatus: 204,
+  origin : [ 'http://localhost:5173', 'http://frontend:5173', 'frontend' ],
+  methods : 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials : true,
+  optionsSuccessStatus : 204,
 };
 
 app.use(cors(corsOptions));
@@ -33,12 +45,8 @@ app.use(express.json());
 
 app.use('/server/korisnik', KorisnikRouter);
 
+app.use("/",
+        (req, res) => { res.status(200).json({message : "Server radi!"}); });
 
-app.use("/" , (req, res) => {
-    res.status(200).json({ message: "Server radi!" });
-}
-);
-
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+app.listen(
+    PORT, () => { console.log(`Server running on http://localhost:${PORT}`); });

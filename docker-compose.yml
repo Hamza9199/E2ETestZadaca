@@ -1,0 +1,54 @@
+services:
+  mysql:
+    image: mysql:9.3
+    container_name: mysql
+    restart: always
+    ports:
+      - "3306:3306" 
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: mysql 
+      MYSQL_USER: admin 
+      MYSQL_PASSWORD: admin
+    networks:
+      - app-network 
+
+  backend:
+    build:
+      context: ./backend
+    command: npm run dev
+    container_name: backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+      - app-network
+    depends_on:
+      - mysql
+    environment:
+      NODE_ENV: development
+      DB_HOST: mysql
+      DB_USER: admin
+      DB_PASSWORD: admin
+      DB_NAME: mysql
+
+  frontend:
+    build:
+      context: ./frontend
+    command: npm run dev
+    ports:
+      - "5173:5173"  
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    working_dir: /app
+    networks:
+      - app-network
+    environment:
+      - VITE_BACKEND_URL=http://localhost:5000
+
+networks:
+  app-network:
+    driver: bridge
