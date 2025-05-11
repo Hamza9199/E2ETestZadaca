@@ -1,7 +1,66 @@
 .title {
-  font-size: 24px;
+  font-size: 2.5rem;
   font-weight: bold;
   color: #f5f0f0;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   text-align: center;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  background-color: #282c34;
+  min-height: 100vh;
+}
+
+.card {
+  background-color: #3a3f47;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  color: #ffffff;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: #61dafb;
+}
+
+.card p {
+  font-size: 1rem;
+  margin: 5px 0;
+  color: #d1d1d1;
+}
+
+.card .price {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #21a1f1;
+  margin: 10px 0;
+}
+
+.button {
+  background-color: #61dafb;
+  border: none;
+  border-radius: 8px;
+  color: #282c34;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.button:hover {
+  background-color: #21a1f1;
+  transform: scale(1.05);
 }
