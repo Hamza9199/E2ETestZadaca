@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styles from './css/Dashboard.module.css';
+import Header from '../komponente/Header';
+import Footer from '../komponente/Footer';
 
 export default function Dashboard() {
   const [products, setProducts] = useState([]);
@@ -12,7 +14,7 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/server/proizvod'); 
+        const response = await axios.get('http://localhost:5000/server/proizvod');
         setProducts(response.data);
       } catch (err) {
         setError('Failed to fetch products');
@@ -25,29 +27,43 @@ export default function Dashboard() {
     fetchProducts();
   }, []);
 
-  if (loading) return <h1>Loading...</h1>;
-  if (error) return <h1>{error}</h1>;
-
+  if (loading) return <h1 className={styles.loading}>Loading...</h1>;
+  if (error) return <h1 className={styles.error}>{error}</h1>;
 
   const handleBuyNow = (productId) => {
-    
     navigate(`/proizvod/${productId}`);
-  }
+  };
 
   return (
     <>
-      <h1 data-testid="page-title" className={styles.title}>Shop Our Products</h1>
-      <div data-testid="product-container" className={styles.container}>
+    <Header/>
+    <div className={styles.dashboard}>
+      <section className={styles.hero}>
+        <h1>Welcome to the Future of Shopping</h1>
+        <p>Discover top products at amazing prices!</p>
+      </section>
+
+      <section className={styles.grid}>
         {products.map((product) => (
-          <div key={product.id} data-testid="product-card" className={styles.card}>
-            <h2>{product.naziv}</h2>
-            <p>{product.opis}</p>
-            <p data-testid="product-price" className={styles.price}>Price: ${product.cijena}</p>
-            <button data-testid="buy-now" onClick={() => handleBuyNow(product.id)} className={styles.button}>Buy Now</button>
+          <div key={product.id} className={styles.card}>
+            <img
+              src={product.slika || 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flaptopmedia.com%2Fwp-content%2Fuploads%2F2023%2F12%2F4-10.jpg&f=1&nofb=1&ipt=f478cbc201bbb853cedaf546be8f2271876e7b8a814a9ee2d21604a22cf997cd'}
+              alt={product.naziv}
+              className={styles.image}
+            />
+            <div className={styles.cardContent}>
+              <h2>{product.naziv}</h2>
+              <p>{product.opis}</p>
+              <p className={styles.price}>${product.cijena}</p>
+              <button onClick={() => handleBuyNow(product.id)} className={styles.button}>
+                Buy Now
+              </button>
+            </div>
           </div>
         ))}
-      </div>
-
+      </section>
+    </div>
+    <Footer/>
     </>
   );
 }
