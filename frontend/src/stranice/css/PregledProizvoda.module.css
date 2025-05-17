@@ -1,0 +1,150 @@
+.page {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+    background-color: #f0f2f5;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    max-width: 1000px;
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.imageSection {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image {
+    width: 100%;
+    max-width: 1500px;
+    border-radius: 12px;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.thumbnailRow {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.thumbnail {
+    width: 500px;
+    height: 500px;
+    object-fit: cover;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    border: 2px solid transparent;
+}
+
+.thumbnail:hover {
+    transform: scale(1.05);
+}
+
+.activeThumb {
+    border-color: #007bff;
+}
+
+.infoSection {
+    flex: 1;
+    padding: 20px;
+}
+
+.productName {
+    font-size: 2rem;
+    color: #222;
+    margin-bottom: 10px;
+}
+
+.rating {
+    color: #f39c12;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.description {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.price {
+    font-size: 1.5rem;
+    color: #27ae60;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.specs {
+    margin-bottom: 20px;
+}
+
+.specs ul {
+    list-style: disc;
+    padding-left: 20px;
+    color: #444;
+}
+
+.buttonGroup {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.buyButton, .cartButton {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.buyButton {
+    background-color: #007bff;
+    color: white;
+}
+
+.buyButton:hover {
+    background-color: #0056b3;
+}
+
+.cartButton {
+     background: linear-gradient(to right, #ff6a00, #ee0979);
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 15px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 6px 12px rgba(238, 9, 121, 0.3);
+}
+
+.cartButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(238, 9, 121, 0.4);
+}
+
+@media (min-width: 768px) {
+    .card {
+        flex-direction: row;
+    }
+
+    .imageSection, .infoSection {
+        flex: 1;
+    }
+}

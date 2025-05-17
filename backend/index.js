@@ -2,25 +2,28 @@ const express = require('express');
 const cors = require('cors');
 const sequelize = require('./sequelizeInstance');
 const Korisnik = require('./models/Korisnik');
+const Proizvod = require('./models/Proizvod');
 const KorisnikRouter = require('./routes/KorisnikRouter');
+const ProizvodRouter = require('./routes/ProizvodRouter');
 
 const app = express();
 const PORT = 5000;
 
-/*
+
 (async () => {
     try {
         await sequelize.authenticate();
         console.log('Konekcija s SQLite bazom je uspješna.');
         await sequelize.query('PRAGMA foreign_keys = ON;');
-        await sequelize.sync({ force: false }); // Onemogućeno automatsko
-ažuriranje console.log('Baza sinhronizovana.'); } catch (error) {
+        await sequelize.sync({ force: false }); // Onemogućeno automatsko ažuriranje
+        console.log('Baza sinhronizovana.');
+    } catch (error) {
         console.error('Greška pri konekciji s bazom:', error);
         process.exit(1);
     }
 })();
-*/
 
+/*
 (async () => {
   try {
     await sequelize.authenticate();
@@ -32,7 +35,7 @@ ažuriranje console.log('Baza sinhronizovana.'); } catch (error) {
     process.exit(1);
   }
 })();
-
+*/
 const corsOptions = {
   origin : [ 'http://localhost:5173', 'http://frontend:5173', 'frontend' ],
   methods : 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -44,6 +47,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use('/server/korisnik', KorisnikRouter);
+app.use('/server/proizvod', ProizvodRouter);
 
 app.use("/",
         (req, res) => { res.status(200).json({message : "Server radi!"}); });
