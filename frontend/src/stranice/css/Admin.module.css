@@ -1,0 +1,144 @@
+.adminLayout {
+    display: flex;
+    min-height: 80vh;
+}
+.adminSidebar {
+    width: 220px;
+    background: #3b74ca;
+    padding: 30px 15px;
+    border-right: 1px solid #e0e0e0;
+    color: #ffffff;
+}
+.adminSidebar h2 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+.adminSidebar ul {
+    list-style: none;
+    padding: 0;
+}
+.adminSidebar li {
+    margin-bottom: 15px;
+}
+.adminSidebar button {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 10px;
+    text-align: left;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+.adminSidebar button.active,
+.adminSidebar button:hover {
+    background: #e3eaff;
+    color: #007bff;
+}
+.adminMain {
+    flex: 1;
+    padding: 40px;
+}
+
+/* ...existing code... */
+
+.adminForm {
+    display: flex;
+    flex-direction: column;
+    
+    gap: 18px;
+    max-width: 400px;
+    background: #111a32;
+
+    padding: 32px 28px;
+    border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(59, 116, 202, 0.08);
+    margin-bottom: 30px;
+}
+
+.adminForm input[type="text"],
+.adminForm input[type="email"],
+.adminForm input[type="password"],
+.adminForm input[type="number"],
+.adminForm input[type="file"] {
+    padding: 12px;
+    border: 1px solid #b3c6e0;
+    border-radius: 7px;
+    font-size: 1rem;
+    background: #251a1a;
+    color: #fcfbfb;
+    transition: border 0.2s;
+}
+
+.adminForm input[type="text"]:focus,
+.adminForm input[type="email"]:focus,
+.adminForm input[type="password"]:focus,
+.adminForm input[type="number"]:focus {
+    border: 1.5px solid #3b74ca;
+    outline: none;
+}
+
+.adminForm button[type="submit"] {
+    background: #3b74ca;
+    color: #fff;
+    border: none;
+    padding: 12px 0;
+    border-radius: 7px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.2s;
+}
+
+.adminForm button[type="submit"]:hover {
+    background: #2456a6;
+}
+
+.adminForm button[type="button"] {
+    background: #e3eaff;
+    color: #3b74ca;
+    border: none;
+    padding: 10px 0;
+    border-radius: 7px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 0;
+    transition: background 0.2s;
+}
+
+.adminForm button[type="button"]:hover {
+    background: #c7dafc;
+    color: #2456a6;
+}
+
+.adminSection {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.adminTable{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.adminTable button {
+    background: #3b74ca;
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 7px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-right: 5px;
+    margin-top: 5px;
+}
+.adminTable button:hover {
+    background: #2456a6;
+}

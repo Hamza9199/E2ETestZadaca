@@ -1,6 +1,6 @@
 const {Sequelize} = require('sequelize');
 
-
+/*
 const sequelize = new Sequelize({
     dialect: 'sqlite',
     storage: './database.sqlite',
@@ -10,13 +10,13 @@ const sequelize = new Sequelize({
         max: 3, // Maksimalno 3 pokušaja
     },
 });
+*/
 
-/*
-const sequelize = new Sequelize('mysql', 'admin', 'admin', {
-  host : 'mysql',
+const sequelize = new Sequelize('defaultdb', 'avnadmin', 'AVNS_bYKnnvCQgPQoFwz-s3Q', {
+  host : 'decibel-redbullshop.h.aivencloud.com',
   dialect : 'mysql',
-  logging : true,
-  port : '3306',
-});*/
+  logging : false,
+  port : '16855',
+});
 
 module.exports = sequelize;

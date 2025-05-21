@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import styles from './css/Dashboard.module.css';
+import styles from './css/Home.module.css';
 import Header from '../komponente/Header';
 import Footer from '../komponente/Footer';
+import Loading from '../komponente/Loading';
 
-export default function Dashboard() {
+export default function Home() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -27,7 +28,7 @@ export default function Dashboard() {
     fetchProducts();
   }, []);
 
-  if (loading) return <h1 className={styles.loading}>Loading...</h1>;
+  if (loading) return <Loading/>;
   if (error) return <h1 className={styles.error}>{error}</h1>;
 
   const handleBuyNow = (productId) => {
@@ -39,8 +40,8 @@ export default function Dashboard() {
     <Header/>
     <div className={styles.dashboard}>
       <section className={styles.hero}>
-        <h1>Welcome to the Future of Shopping</h1>
-        <p>Discover top products at amazing prices!</p>
+        <h1>Dobrodošli u budućnost kupovine</h1>
+        <p>Otkrijte vrhunske proizvode po nevjerovatnim cijenama!</p>
       </section>
 
       <section className={styles.grid}>
@@ -54,9 +55,9 @@ export default function Dashboard() {
             <div className={styles.cardContent}>
               <h2>{product.naziv}</h2>
               <p>{product.opis}</p>
-              <p className={styles.price}>${product.cijena}</p>
+              <p className={styles.price}>{product.cijena} KM</p>
               <button onClick={() => handleBuyNow(product.id)} className={styles.button}>
-                Buy Now
+                Dodatni Info
               </button>
             </div>
           </div>

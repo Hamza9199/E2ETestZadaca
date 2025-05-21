@@ -1,80 +1,105 @@
-.form {
-    max-width: 400px;
-    margin: 40px auto;
-    padding: 32px 24px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+.container {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #4078c0 0%, #6dd5ed 100%);
 }
 
-.error {
-  color: red;
-  margin-top: 10px;
+.registerBox {
+    background: #fff;
+    padding: 2.5rem 2.5rem 2rem 2.5rem;
+    border-radius: 14px;
+    box-shadow: 0 8px 32px rgba(64,120,192,0.13);
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
 }
-
 
 .title {
     font-size: 2rem;
-    font-weight: 600;
+    font-weight: 700;
+    color: #4078c0;
     text-align: center;
-    margin-bottom: 12px;
-    color: #333;
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
 }
 
-.inputGroup {
+.form {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-}
-
-.label {
-    font-size: 1rem;
-    color: #555;
+    gap: 1.1rem;
+    width: 100%;
 }
 
 .input {
-    padding: 10px 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 0.85rem 1rem;
+    border: 1.5px solid #dcdde1;
+    border-radius: 7px;
     font-size: 1rem;
+    outline: none;
     transition: border 0.2s;
+    background: #f8faff;
+    color: #333;
+    
 }
 
 .input:focus {
-    border-color: #007bff;
-    outline: none;
+    border-color: #4078c0;
+    background: #fff;
 }
 
 .button {
-    padding: 12px;
-    background: #007bff;
+    padding: 0.85rem 1rem;
+    background: linear-gradient(90deg, #4078c0 60%, #6dd5ed 100%);
     color: #fff;
     border: none;
-    border-radius: 4px;
-    font-size: 1.1rem;
-    font-weight: 500;
+    border-radius: 7px;
+    font-size: 1.08rem;
+    font-weight: 600;
     cursor: pointer;
     transition: background 0.2s;
+    margin-top: 0.5rem;
+    box-shadow: 0 2px 8px rgba(64,120,192,0.08);
 }
 
 .button:hover {
-    background: #0056b3;
+    background: linear-gradient(90deg, #305a8c 60%, #4fc3f7 100%);
 }
 
 .error {
-    color: #d32f2f;
-    font-size: 0.95rem;
-    margin-top: -8px;
-    margin-bottom: 8px;
-    text-align: left;
+    color: #e74c3c;
+    font-size: 0.97rem;
+    text-align: center;
+    margin-bottom: -0.5rem;
 }
 
 .success {
     color: #388e3c;
     font-size: 1rem;
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: -0.5rem;
+}
+
+.loginLink {
+    margin-top: 0.5rem;
+    text-align: center;
+    font-size: 1rem;
+    color: #4078c0;
+}
+
+.loginLink a {
+    color: #4078c0;
+    font-weight: 600;
+    text-decoration: underline;
+    margin-left: 4px;
+    transition: color 0.2s;
+}
+
+.loginLink a:hover {
+    color: #305a8c;
 }

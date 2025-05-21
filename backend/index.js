@@ -9,7 +9,7 @@ const ProizvodRouter = require('./routes/ProizvodRouter');
 const app = express();
 const PORT = 5000;
 
-
+/*
 (async () => {
     try {
         await sequelize.authenticate();
@@ -22,8 +22,8 @@ const PORT = 5000;
         process.exit(1);
     }
 })();
+*/
 
-/*
 (async () => {
   try {
     await sequelize.authenticate();
@@ -35,7 +35,7 @@ const PORT = 5000;
     process.exit(1);
   }
 })();
-*/
+
 const corsOptions = {
   origin : [ 'http://localhost:5173', 'http://frontend:5173', 'frontend' ],
   methods : 'GET,HEAD,PUT,PATCH,POST,DELETE',
@@ -45,6 +45,10 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
+
+
+app.use("/uploads", express.static("uploads"));
+
 
 app.use('/server/korisnik', KorisnikRouter);
 app.use('/server/proizvod', ProizvodRouter);

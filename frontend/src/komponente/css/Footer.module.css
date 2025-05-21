@@ -3,6 +3,10 @@
     color: white;
     padding: 40px 20px;
     text-align: center;
+    position: relative;
+    left: 0;
+    right: 0;
+    overflow: hidden;
 }
 
 .container {

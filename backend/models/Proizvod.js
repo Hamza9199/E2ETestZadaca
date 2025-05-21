@@ -19,6 +19,10 @@ const Proizvod = sequelize.define('Proizvod', {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
     },
+    slika: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
     createdAt: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,

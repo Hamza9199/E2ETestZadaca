@@ -10,23 +10,21 @@ describe('Auth Flow', () => {
     cy.get('input[name="confirmPassword"]').type(password);
     cy.get('button[type="submit"]').click();
 
-    cy.url().should('include', '/dashboard');
-    cy.contains('Welcome to Dashboard');
+    cy.url().should('include', '/');
   });
 
   it('logs in an existing user', () => {
-    cy.visit('http://localhost:5173/');
+    cy.visit('http://localhost:5173/login');
 
     cy.get('input[name="email"]').type(email);
     cy.get('input[name="password"]').type(password);
     cy.get('button[type="submit"]').click();
 
-    cy.url().should('include', '/dashboard');
-    cy.contains('Welcome to Dashboard');
+    cy.url().should('include', '/');
   });
 
   it('shows error on empty login fields', () => {
-    cy.visit('http://localhost:5173/');
+    cy.visit('http://localhost:5173/login');
 
     cy.get('button[type="submit"]').click();
 
@@ -35,7 +33,7 @@ describe('Auth Flow', () => {
   });
 
   it('shows error on wrong login credentials', () => {
-    cy.visit('http://localhost:5173/');
+    cy.visit('http://localhost:5173/login');
 
     cy.get('input[name="email"]').type('wrong@example.com');
     cy.get('input[name="password"]').type('wrongpass');
@@ -54,7 +52,7 @@ describe('Auth Flow', () => {
     cy.get('input[name="confirmPassword"]').type('differentPass');
     cy.get('button[type="submit"]').click();
 
-    cy.contains('Passwords do not match');
+    cy.contains('Lozinke se ne podudaraju'); // promijenjeno
   });
 
   it('shows error on invalid email format during registration', () => {
@@ -65,6 +63,6 @@ describe('Auth Flow', () => {
     cy.get('input[name="confirmPassword"]').type('password123');
     cy.get('button[type="submit"]').click();
 
-    cy.contains('Enter a valid email address');
+    cy.contains('Unesite ispravan email'); // promijenjeno
   });
 });

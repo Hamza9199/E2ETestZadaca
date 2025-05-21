@@ -6,21 +6,20 @@ const Footer = () => {
         <footer className={styles.footer}>
             <div className={styles.container}>
                 <div className={styles.section}>
-                    <h4>About Us</h4>
+                    <h4>O nama</h4>
                     <p>
-                        Welcome to our shopping site! We offer the best products at the best prices.
+                        Dobrodošli na našu stranicu za kupovinu! Nudimo najbolje proizvode po najboljim cijenama.
                     </p>
                 </div>
                 <div className={styles.section}>
-                    <h4>Quick Links</h4>
+                    <h4>Brzi linkovi</h4>
                     <ul>
-                        <li><a href="/dashboard">Shop</a></li>
-                        <li><a href="/dashboard">About</a></li>
-                        <li><a href="/dashboard">Contact</a></li>
+                        <li><a href="/">Prodavnica</a></li>
+                        <li><a href="/">O nama</a></li>
                     </ul>
                 </div>
                 <div className={styles.section}>
-                    <h4>Follow Us</h4>
+                    <h4>Pratite nas</h4>
                     <div className={styles.socialIcons}>
                         <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a>
                         <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a>
@@ -29,7 +28,7 @@ const Footer = () => {
                 </div>
             </div>
             <div className={styles.bottomBar}>
-                <p>&copy; {new Date().getFullYear()} Shopping Site. All rights reserved.</p>
+                <p>&copy; {new Date().getFullYear()} Stranica za kupovinu. Sva prava zadržana.</p>
             </div>
         </footer>
     );

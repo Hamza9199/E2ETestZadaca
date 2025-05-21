@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import styles from './css/Login.module.css';
 
@@ -26,7 +26,7 @@ export default function Login() {
       const { data } = req;
       if (data.message === 'Uspješna prijava') {
         localStorage.setItem('user', JSON.stringify(data.korisnik));
-        navigate('/dashboard');
+        navigate('/');
       } else {
         setError(data.message);
       }
@@ -36,28 +36,36 @@ export default function Login() {
   };
 
   return (
-    <form className={styles.form} onSubmit={handleLogin}>
-      <h2 className={styles.title}>Login</h2>
-      {error && error.split('\n').map((msg, i) => (
-        <p key={i} className={styles.error}>{msg}</p>
-      ))}
-      <input
-        className={styles.input}
-        name="email"
-        autoComplete="email"
-        placeholder="Email"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-      />
-      <input
-        className={styles.input}
-        name="password"
-        placeholder="Password"
-        type="password"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-      />
-      <button className={styles.button} type="submit">Login</button>
-    </form>
+    <div className={styles.container}>
+      <div className={styles.loginBox}>
+        <form className={styles.form} onSubmit={handleLogin}>
+          <h2 className={styles.title}>Prijava</h2>
+          {error && error.split('\n').map((msg, i) => (
+            <p key={i} className={styles.error}>{msg}</p>
+          ))}
+          <input
+            className={styles.input}
+            name="email"
+            autoComplete="email"
+            placeholder="Email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
+          <input
+            className={styles.input}
+            name="password"
+            placeholder="Password"
+            type="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+          <button className={styles.button} type="submit">Prijavi se</button>
+        </form>
+        <div className={styles.registerLink}>
+          <span>Nemate račun? </span>
+          <Link to="/register">Registrujte se</Link>
+        </div>
+      </div>
+    </div>
   );
 }
