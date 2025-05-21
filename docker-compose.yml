@@ -1,18 +1,4 @@
 services:
-  mysql:
-    image: mysql:9.3
-    container_name: mysql
-    restart: always
-    ports:
-      - "3306:3306" 
-    environment:
-      MYSQL_ROOT_PASSWORD: admin
-      MYSQL_DATABASE: mysql 
-      MYSQL_USER: admin 
-      MYSQL_PASSWORD: admin
-    networks:
-      - app-network 
-
   backend:
     build:
       context: ./backend
@@ -25,8 +11,6 @@ services:
       - /app/node_modules
     networks:
       - app-network
-    depends_on:
-      - mysql
     environment:
       NODE_ENV: development
       DB_HOST: mysql
