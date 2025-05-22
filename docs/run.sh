@@ -6,7 +6,7 @@ export LC_ALL="en_US.UTF-8"
 
 # Ulazni fajlovi - OBAVEZNO da budu u ispravnom redoslijedu prema strukturi rada
 input_files=(
-	e2e.md
+	temp.md
 	Last.md
 )
 
@@ -25,6 +25,7 @@ options=(
   --citeproc
   --bibliography=references.bib
   --csl=ieee.csl
+  --variable monofontoptions=Scale=0.8
   -V mainfont="Georgia"
   -V monofont="JetBrains Mono"
   -V linestretch=1.3

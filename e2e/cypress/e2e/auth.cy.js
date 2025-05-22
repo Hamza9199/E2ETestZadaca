@@ -40,7 +40,7 @@ describe('Auth Flow', () => {
     cy.get('button[type="submit"]').click();
 
     cy.log('Submitted login form');
-    cy.contains('Invalid email or password', { timeout: 10000 }); 
+    cy.contains('Invalid email or password', {timeout : 10000});
     cy.log('Found error message');
   });
 
