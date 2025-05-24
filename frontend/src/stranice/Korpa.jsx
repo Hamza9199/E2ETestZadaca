@@ -51,21 +51,21 @@ const Korpa = () => {
     return (
         <>
             <Header />
-            <div className={styles.korpa}>
+            <div className={styles.korpa} data-testid="korpa">
                 <h1>🛒 Vaša Korpa</h1>
                 {korpa.length === 0 ? (
-                    <p className={styles.empty}>Korpa je prazna</p>
+                    <p className={styles.empty} data-testid="korpa-empty">Korpa je prazna</p>
                 ) : (
-                    <ul>
+                    <ul data-testid="korpa-list">
                         {korpa.map((item) => (
-                            <li key={item.id}>
+                            <li key={item.id} data-testid="korpa-item">
                                 <div className={styles.itemInfo}>
-                                    <span className={styles.itemName}>{item.naziv}</span>
-                                    <span className={styles.itemQty}>x{item.kolicina}</span>
+                                    <span className={styles.itemName} data-testid="item-name">{item.naziv}</span>
+                                    <span className={styles.itemQty} data-testid="item-qty">x{item.kolicina}</span>
                                 </div>
                                 <div className={styles.itemPrice}>
-                                    <span>{(item.cijena * item.kolicina).toFixed(2)} KM</span>
-                                    <button className={styles.removeBtn} onClick={() => obrisiIzKorpe(item.id)}>
+                                    <span data-testid="item-price">{(item.cijena * item.kolicina).toFixed(2)} KM</span>
+                                    <button className={styles.removeBtn} data-testid="remove-btn" onClick={() => obrisiIzKorpe(item.id)}>
                                         Obriši
                                     </button>
                                 </div>
@@ -73,8 +73,8 @@ const Korpa = () => {
                         ))}
                     </ul>
                 )}
-                <h2 className={styles.total}>Ukupno: <span>{ukupno.toFixed(2)} KM</span></h2>
-                <button className={styles.buyBtn} onClick={() => navigate("/")}>Nastavi kupovinu</button>
+                <h2 className={styles.total}>Ukupno: <span data-testid="korpa-total">{ukupno.toFixed(2)} KM</span></h2>
+                <button className={styles.buyBtn} data-testid="continue-btn" onClick={() => navigate("/")}>Nastavi kupovinu</button>
             </div>
             <Footer />
         </>
