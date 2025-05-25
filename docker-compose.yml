@@ -23,7 +23,7 @@ services:
       context: ./frontend
     command: npm run dev
     ports:
-      - "5173:5173"  
+      - "5173:4173"  
     volumes:
       - ./frontend:/app
       - /app/node_modules
@@ -32,6 +32,13 @@ services:
       - app-network
     environment:
       - VITE_BACKEND_URL=http://backend:5000
+    depends_on:
+      - backend
+    healthcheck:
+      test: wget --spider -q http://localhost:5173 || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   tests:
     build:
@@ -44,6 +51,8 @@ services:
       - app-network
     environment:
       - CYPRESS_BASE_URL=http://frontend:5173
+    depends_on:
+      - frontend
 
 
 networks:
