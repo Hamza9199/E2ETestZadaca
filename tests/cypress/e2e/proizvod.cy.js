@@ -2,7 +2,7 @@ describe('Detalji Proizvoda', () => {
   const productId = 5;
   const productUrl = `/proizvod/${productId}`;
 
-  beforeEach(() => { cy.visit(productUrl, {failOnStatusCode : false}; });
+  beforeEach(() => { cy.visit(productUrl, {failOnStatusCode : false}); });
 
   it('should display the product name as title',
      () => { cy.get('h1').should('exist').and('not.be.empty'); });

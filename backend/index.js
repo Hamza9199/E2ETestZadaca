@@ -37,10 +37,21 @@ const PORT = 5000;
 })();
 
 const corsOptions = {
-  origin : [ 'http://localhost:5173', 'http://frontend:5173', 'frontend' ],
-  methods : 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials : true,
-  optionsSuccessStatus : 204,
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    const allowedOrigins = [
+      'http://localhost:5173',
+      'http://frontend:5173',
+      'frontend'
+    ];
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error('Not allowed by CORS'));
+  },
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  optionsSuccessStatus: 204,
 };
 
 app.use(cors(corsOptions));
