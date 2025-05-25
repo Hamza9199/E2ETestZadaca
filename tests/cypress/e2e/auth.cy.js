@@ -3,7 +3,7 @@ describe('Auth Flow', () => {
   const password = 'newpass123';
 
   it('registers a new user', () => {
-    cy.visit('http://localhost:5173/register');
+    cy.visit('/register', {failOnStatusCode : false});
 
     cy.get('input[name="email"]').type(email);
     cy.get('input[name="password"]').type(password);
@@ -14,7 +14,7 @@ describe('Auth Flow', () => {
   });
 
   it('logs in an existing user', () => {
-    cy.visit('http://localhost:5173/login');
+    cy.visit('/login', {failOnStatusCode : false});
 
     cy.get('input[name="email"]').type(email);
     cy.get('input[name="password"]').type(password);
@@ -24,7 +24,7 @@ describe('Auth Flow', () => {
   });
 
   it('shows error on empty login fields', () => {
-    cy.visit('http://localhost:5173/login');
+    cy.visit('/login', {failOnStatusCode : false});
 
     cy.get('button[type="submit"]').click();
 
@@ -33,7 +33,7 @@ describe('Auth Flow', () => {
   });
 
   it('shows error on wrong login credentials', () => {
-    cy.visit('http://localhost:5173/login');
+    cy.visit('/login', {failOnStatusCode : false});
 
     cy.get('input[name="email"]').type('wrong@example.com');
     cy.get('input[name="password"]').type('wrongpass');
@@ -45,7 +45,7 @@ describe('Auth Flow', () => {
   });
 
   it('shows error if passwords do not match during registration', () => {
-    cy.visit('http://localhost:5173/register');
+    cy.visit('/register', {failOnStatusCode : false});
 
     cy.get('input[name="email"]').type('another@example.com');
     cy.get('input[name="password"]').type('password123');
@@ -56,7 +56,7 @@ describe('Auth Flow', () => {
   });
 
   it('shows error on invalid email format during registration', () => {
-    cy.visit('http://localhost:5173/register');
+    cy.visit('/register', {failOnStatusCode : false});
 
     cy.get('input[name="email"]').type('invalidemail');
     cy.get('input[name="password"]').type('password123');

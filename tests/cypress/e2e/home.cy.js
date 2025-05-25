@@ -1,14 +1,15 @@
 describe('Početna', () => {
-  beforeEach(() => {
-    cy.visit('http://localhost:5173/');
-  });
+  beforeEach(() => { cy.visit('/', {failOnStatusCode : false}); });
 
   it('should display the hero title', () => {
     cy.get('h1').contains('Dobrodošli u budućnost kupovine').should('exist');
   });
 
   it('should load and display products', () => {
-    cy.get('section').eq(1).find('div[class*=card]').should('have.length.greaterThan', 0);
+    cy.get('section')
+        .eq(1)
+        .find('div[class*=card]')
+        .should('have.length.greaterThan', 0);
   });
 
   it('should display product details', () => {

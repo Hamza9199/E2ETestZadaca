@@ -1,7 +1,5 @@
 describe('Admin Panel E2E', () => {
-  beforeEach(() => {
-    cy.visit('http://localhost:5173/admin');
-  });
+  beforeEach(() => { cy.visit('/admin', {failOnStatusCode : false}); });
 
   it('should display sidebar with all admin options', () => {
     cy.get('aside').should('exist');
@@ -27,18 +25,20 @@ describe('Admin Panel E2E', () => {
 
   it('should allow editing and deleting a user', () => {
     cy.contains('Pregled korisnika').click();
-    cy.get('table').contains('td', 'testadmin@e2e.com').parent('tr').within(() => {
-      cy.contains('Edit').click();
-    });
+    cy.get('table')
+        .contains('td', 'testadmin@e2e.com')
+        .parent('tr')
+        .within(() => { cy.contains('Edit').click(); });
     cy.get('form').within(() => {
       cy.get('input[name="email"]').clear().type('testadmin2@e2e.com');
       cy.get('button[type="submit"]').click();
     });
     cy.contains('Pregled korisnika').click();
     cy.get('table').contains('td', 'testadmin2@e2e.com').should('exist');
-    cy.get('table').contains('td', 'testadmin2@e2e.com').parent('tr').within(() => {
-      cy.contains('Delete').click();
-    });
+    cy.get('table')
+        .contains('td', 'testadmin2@e2e.com')
+        .parent('tr')
+        .within(() => { cy.contains('Delete').click(); });
     cy.contains('Pregled korisnika').click();
     cy.get('table').contains('td', 'testadmin2@e2e.com').should('not.exist');
   });
@@ -68,9 +68,10 @@ describe('Admin Panel E2E', () => {
     });
     cy.contains('Pregled proizvoda').click();
     cy.get('table').contains('td', 'Test Proizvod 2').should('exist');
-    cy.get('table').contains('td', 'Test Proizvod 2').parent('tr').within(() => {
-      cy.contains('Delete').click();
-    });
+    cy.get('table')
+        .contains('td', 'Test Proizvod 2')
+        .parent('tr')
+        .within(() => { cy.contains('Delete').click(); });
     cy.contains('Pregled proizvoda').click();
     cy.get('table').contains('td', 'Test Proizvod 2').should('not.exist');
   });

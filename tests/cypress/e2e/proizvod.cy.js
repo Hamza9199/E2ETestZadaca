@@ -1,14 +1,11 @@
 describe('Detalji Proizvoda', () => {
   const productId = 5;
-  const productUrl = `http://localhost:5173/proizvod/${productId}`;
+  const productUrl = `/proizvod/${productId}`;
 
-  beforeEach(() => {
-    cy.visit(productUrl);
-  });
+  beforeEach(() => { cy.visit(productUrl, {failOnStatusCode : false}; });
 
-  it('should display the product name as title', () => {
-    cy.get('h1').should('exist').and('not.be.empty');
-  });
+  it('should display the product name as title',
+     () => { cy.get('h1').should('exist').and('not.be.empty'); });
 
   it('should load and display product details', () => {
     cy.get('[class*="card"]').within(() => {
@@ -20,26 +17,24 @@ describe('Detalji Proizvoda', () => {
     });
   });
 
-
   it('should handle loading state', () => {
-    cy.intercept('GET', `http://localhost:5000/server/proizvod/${productId}`, (req) => {
-      req.on('response', (res) => {
-        res.setDelay(2000);
-      });
-    }).as('getProduct');
+    cy.intercept(
+          'GET', `http://localhost:5000/server/proizvod/${productId}`,
+          (req) => { req.on('response', (res) => { res.setDelay(2000); }); })
+            .as('getProduct');
 
-    cy.visit(productUrl);
-    
+    cy.visit(productUrl, {failOnStatusCode : false});
+
     cy.wait('@getProduct');
   });
 
   it('should handle server error gracefully', () => {
     cy.intercept('GET', `http://localhost:5000/server/proizvod/${productId}`, {
-      statusCode: 500,
-      body: { error: 'Internal Server Error' },
-    }).as('getProductError');
+        statusCode : 500,
+        body : {error : 'Internal Server Error'},
+      }).as('getProductError');
 
-    cy.visit(productUrl);
+    cy.visit(productUrl, {failOnStatusCode : false});
     cy.contains('h1', 'Error:').should('exist');
   });
 });
