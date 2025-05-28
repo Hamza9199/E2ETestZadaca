@@ -44,6 +44,10 @@ Cypress je moderan JavaScript framework za end-to-end testiranje web aplikacija.
 - **Sinhroni API:** Iako se radi o asinhronom okruženju, Cypress omogućava pisanje testova na način koji liči na sinhroni kod, olakšavajući razumijevanje i razvoj.
 - **Integracija s razvojnim alatima:** Pruža mogućnost praćenja grešaka, vizualizacije izvršenih testova te jednostavno podešavanje u okviru CI/CD procesa.[^6][@ci_testing_react]
 
+![Cypress GUI](cypress_gui_1.png){#fig:cypress_gui_1}
+
+![Cypress Specifikacije](cypress_gui_2.png){#fig:cypress_gui_2}
+
 ## Osnove automatiziranog testiranja React aplikacija
 React je jedna od najpopularnijih JavaScript biblioteka[^2][@react_docs] za izgradnju korisničkih interfejsa. Automatizirano testiranje React aplikacija omogućava:
 - **Validaciju UI komponenata:** Provjera ispravnosti prikaza i funkcionalnosti komponenti.
@@ -128,22 +132,22 @@ Node.js služi kao temelj za rad Cypressa[^3][@nodejs_docs]:
 Instalacija Cypressa je jednostavna zahvaljujući npm-u. Osnovni koraci su:
 
 1. **Inicijalizacija Node.js projekta:**
-   ```bash
-   mkdir react-cypress-test
-   cd react-cypress-test
-   npm init -y
+```bash
+mkdir react-cypress-test
+cd react-cypress-test
+npm init -y
 ```
 
 2. **Instalacija Cypressa:**
 
-   ```bash
-   npm install cypress --save-dev
-   ```
+```bash
+npm install cypress --save-dev
+```
 3. **Pokretanje Cypressa:**
 
-   ```bash
-   npx cypress open
-   ```
+```bash
+npx cypress open
+```
 4. **Konfiguracija okruženja:**
    U datoteci `cypress.json` definiraju se osnovne postavke kao što su URL aplikacije, timeout vrijednosti i putanje do testova.
 
@@ -154,6 +158,88 @@ Instalacija Cypressa je jednostavna zahvaljujući npm-u. Osnovni koraci su:
 Pisanje test slučajeva u Cypressu je intuitivno zahvaljujući njegovom API-ju:
 
 * **Testovi slučaja za login/register funkcionalnost:**
+
+`admin.cy.js`:
+```javascript
+describe('Admin Panel E2E', () => {
+  beforeEach(() => { cy.visit('/admin', {failOnStatusCode : false}); });
+
+  it('should display sidebar with all admin options', () => {
+    cy.get('aside').should('exist');
+    cy.contains('Admin Opcije').should('exist');
+    cy.contains('Pregled korisnika').should('exist');
+    cy.contains('Novi korisnik').should('exist');
+    cy.contains('Pregled proizvoda').should('exist');
+    cy.contains('Novi proizvod').should('exist');
+  });
+
+  it('should show users table and allow creating a new user', () => {
+    cy.contains('Pregled korisnika').click();
+    cy.get('table').should('exist');
+    cy.contains('Novi korisnik').click();
+    cy.get('form').within(() => {
+      cy.get('input[name="email"]').type('testadmin@e2e.com');
+      cy.get('input[name="password"]').type('testpass123');
+      cy.get('button[type="submit"]').click();
+    });
+    cy.contains('Pregled korisnika').click();
+    cy.get('table').contains('td', 'testadmin@e2e.com').should('exist');
+  });
+
+  it('should allow editing and deleting a user', () => {
+    cy.contains('Pregled korisnika').click();
+    cy.get('table')
+        .contains('td', 'testadmin@e2e.com')
+        .parent('tr')
+        .within(() => { cy.contains('Edit').click(); });
+    cy.get('form').within(() => {
+      cy.get('input[name="email"]').clear().type('testadmin2@e2e.com');
+      cy.get('button[type="submit"]').click();
+    });
+    cy.contains('Pregled korisnika').click();
+    cy.get('table').contains('td', 'testadmin2@e2e.com').should('exist');
+    cy.get('table')
+        .contains('td', 'testadmin2@e2e.com')
+        .parent('tr')
+        .within(() => { cy.contains('Delete').click(); });
+    cy.contains('Pregled korisnika').click();
+    cy.get('table').contains('td', 'testadmin2@e2e.com').should('not.exist');
+  });
+
+  it('should show products table and allow creating a new product', () => {
+    cy.contains('Pregled proizvoda').click();
+    cy.get('table').should('exist');
+    cy.contains('Novi proizvod').click();
+    cy.get('form').within(() => {
+      cy.get('input[name="naziv"]').type('Test Proizvod');
+      cy.get('input[name="opis"]').type('Opis za test proizvod');
+      cy.get('input[name="cijena"]').type('123.45');
+      cy.get('button[type="submit"]').click();
+    });
+    cy.contains('Pregled proizvoda').click();
+    cy.get('table').contains('td', 'Test Proizvod').should('exist');
+  });
+
+  it('should allow editing and deleting a product', () => {
+    cy.contains('Pregled proizvoda').click();
+    cy.get('table').contains('td', 'Test Proizvod').parent('tr').within(() => {
+      cy.contains('Edit').click();
+    });
+    cy.get('form').within(() => {
+      cy.get('input[name="naziv"]').clear().type('Test Proizvod 2');
+      cy.get('button[type="submit"]').click();
+    });
+    cy.contains('Pregled proizvoda').click();
+    cy.get('table').contains('td', 'Test Proizvod 2').should('exist');
+    cy.get('table')
+        .contains('td', 'Test Proizvod 2')
+        .parent('tr')
+        .within(() => { cy.contains('Delete').click(); });
+    cy.contains('Pregled proizvoda').click();
+    cy.get('table').contains('td', 'Test Proizvod 2').should('not.exist');
+  });
+});
+```
 
 `auth.cy.js`:
 ```javascript
@@ -261,19 +347,71 @@ describe('Početna', () => {
 ```
 \newpage
 
+`korpa.cy.js`:
+```javascript
+describe('Korpa (Cart) E2E', () => {
+  const productId = 2;
+
+  it('should add a product to cart and display it in Korpa', () => {
+    cy.visit(`/proizvod/${productId}`, {failOnStatusCode : false});
+    cy.get('button').contains('Add to Cart').click();
+
+    cy.window().then((win) => {
+      return new Cypress.Promise((resolve) => {
+        const check = () => {
+          const korpa = JSON.parse(win.localStorage.getItem('korpa') || '[]');
+          if (korpa.length > 0)
+            resolve();
+          else
+            setTimeout(check, 100);
+        };
+        check();
+      });
+    });
+
+    cy.visit('/korpa', {failOnStatusCode : false});
+    cy.reload();
+
+    cy.get('[data-testid="korpa-item"]', {timeout : 10000}).should('exist');
+    cy.get('[data-testid="korpa-item"]').should('have.length.greaterThan', 0);
+    cy.get('[data-testid="korpa-item"]').first().within(() => {
+      cy.get('[data-testid="item-name"]').should('exist').and('not.be.empty');
+      cy.get('[data-testid="item-qty"]').should('contain.text', 'x1');
+      cy.get('[data-testid="item-price"]').should('contain.text', 'KM');
+      cy.get('[data-testid="remove-btn"]').should('exist');
+    });
+
+    cy.get('[data-testid="korpa-total"]').should('not.be.empty');
+
+    // Obriši proizvod iz korpe
+    cy.get('[data-testid="korpa-item"]')
+        .first()
+        .find('[data-testid="remove-btn"]')
+        .click();
+
+    // Provjeri da je korpa prazna
+    cy.get('[data-testid="korpa-empty"]')
+        .should('contain.text', 'Korpa je prazna');
+  });
+
+  it('should navigate back to shop when clicking "Nastavi kupovinu"', () => {
+    cy.visit('/korpa', {failOnStatusCode : false});
+    cy.get('[data-testid="continue-btn"]').click();
+    cy.url().should('eq', Cypress.config().baseUrl + '/');
+  });
+});
+```
+
 `proizvod.cy.js`:
 ```javascript
 describe('Detalji Proizvoda', () => {
   const productId = 5;
-  const productUrl = `http://localhost:5173/proizvod/${productId}`;
+  const productUrl = `/proizvod/${productId}`;
 
-  beforeEach(() => {
-    cy.visit(productUrl);
-  });
+  beforeEach(() => { cy.visit(productUrl, {failOnStatusCode : false}); });
 
-  it('should display the product name as title', () => {
-    cy.get('h1').should('exist').and('not.be.empty');
-  });
+  it('should display the product name as title',
+     () => { cy.get('h1').should('exist').and('not.be.empty'); });
 
   it('should load and display product details', () => {
     cy.get('[class*="card"]').within(() => {
@@ -285,31 +423,28 @@ describe('Detalji Proizvoda', () => {
     });
   });
 
-
   it('should handle loading state', () => {
-    cy.intercept('GET', `http://localhost:5000/server/proizvod/${productId}`, (req) => {
-      req.on('response', (res) => {
-        res.setDelay(2000);
-      });
-    }).as('getProduct');
+    cy.intercept(
+          'GET', `http://localhost:5000/server/proizvod/${productId}`,
+          (req) => { req.on('response', (res) => { res.setDelay(2000); }); })
+            .as('getProduct');
 
-    cy.visit(productUrl);
-    
+    cy.visit(productUrl, {failOnStatusCode : false});
+
     cy.wait('@getProduct');
   });
 
   it('should handle server error gracefully', () => {
     cy.intercept('GET', `http://localhost:5000/server/proizvod/${productId}`, {
-      statusCode: 500,
-      body: { error: 'Internal Server Error' },
-    }).as('getProductError');
+        statusCode : 500,
+        body : {error : 'Internal Server Error'},
+      }).as('getProductError');
 
-    cy.visit(productUrl);
+    cy.visit(productUrl, {failOnStatusCode : false});
     cy.contains('h1', 'Error:').should('exist');
   });
 });
 ```
-
 
 * **Validacija UI interakcija:**
   Cypress omogućava provjeru vidljivosti elemenata, ispravnosti sadržaja i izvršavanje drugih provjera bez dodatne konfiguracije.
