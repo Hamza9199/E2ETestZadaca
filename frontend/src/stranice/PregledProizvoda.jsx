@@ -33,8 +33,20 @@ export default function PregledProizvoda() {
     }, [id]);
 
     if (loading) return <Loading/>;
-    if (error) return <h1 className={styles.title}>Error: {error}</h1>;
-    if (!product) return <h1 className={styles.title}>Product not found</h1>;
+    if (error) return (
+        <>
+            <Header />
+            <h1 className={styles.title}>Error: {error}</h1>
+            <Footer />
+        </>
+    );
+    if (!product) return( 
+    <>
+        <Header />
+        <h1 className={styles.title}>Product not found</h1>
+        <Footer />
+    </>
+);
 
 
     const handleAddToCart = () => {

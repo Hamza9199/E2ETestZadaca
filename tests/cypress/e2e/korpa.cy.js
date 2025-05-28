@@ -46,6 +46,6 @@ describe('Korpa (Cart) E2E', () => {
   it('should navigate back to shop when clicking "Nastavi kupovinu"', () => {
     cy.visit('/korpa', {failOnStatusCode : false});
     cy.get('[data-testid="continue-btn"]').click();
-    cy.url().should('eq', '/');
+    cy.url().should('eq', Cypress.config().baseUrl + '/');
   });
 });

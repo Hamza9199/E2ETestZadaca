@@ -48,6 +48,13 @@ const Korpa = () => {
         }, 2000);
     };
 
+
+    const obrisiSve = () => {
+        setKorpa([]);
+        localStorage.removeItem("korpa");
+        setUkupno(0);
+    };
+
     return (
         <>
             <Header />
@@ -74,7 +81,12 @@ const Korpa = () => {
                     </ul>
                 )}
                 <h2 className={styles.total}>Ukupno: <span data-testid="korpa-total">{ukupno.toFixed(2)} KM</span></h2>
-                <button className={styles.buyBtn} data-testid="continue-btn" onClick={() => navigate("/")}>Nastavi kupovinu</button>
+                <div className={styles.buttons}>                 
+                    <button className={styles.buyBtn} data-testid="continue-btn" onClick={() => navigate("/")}>Nastavi kupovinu</button>
+                    <button className={styles.buyBtn} data-testid="checkout-btn" onClick={() => obrisiSve()}>
+                        Kupi
+                    </button>
+                </div>
             </div>
             <Footer />
         </>

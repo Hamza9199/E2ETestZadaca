@@ -10,6 +10,13 @@
     align-items: center;
 }
 
+.buttons{
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
 .korpa h1 {
     font-size: 2.2rem;
     color: #4078c0;

@@ -15,7 +15,9 @@ const Footer = () => {
                     <h4>Brzi linkovi</h4>
                     <ul>
                         <li><a href="/">Prodavnica</a></li>
-                        <li><a href="/">O nama</a></li>
+                        <li>
+                            Naša Prodavnica :)
+                        </li>
                     </ul>
                 </div>
                 <div className={styles.section}>

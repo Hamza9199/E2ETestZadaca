@@ -29,7 +29,13 @@ export default function Home() {
   }, []);
 
   if (loading) return <Loading/>;
-  if (error) return <h1 className={styles.error}>{error}</h1>;
+  if (error) return (
+        <>
+            <Header />
+            <h1 className={styles.title}>Error: {error}</h1>
+            <Footer />
+        </>
+    );
 
   const handleBuyNow = (productId) => {
     navigate(`/proizvod/${productId}`);

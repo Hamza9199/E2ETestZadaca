@@ -25,7 +25,7 @@ const Header = () => {
             <nav className={styles.nav}>
                 <ul>
                     <li><a href="/">Početna</a></li>
-                    <li><a href="/admin">O nama</a></li>
+                    <li><a href="/admin">Admin Panel</a></li>
                     <li>
                         {user ? (
                             <a
