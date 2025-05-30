@@ -3,9 +3,6 @@
 > Projekat je Dokerizovan
 
 ## Servisi 
-- Server     5000:5000
-- Frontend   5173:5173
-- MySQL Baza Deployana
 
 | Servis            | Port:Forward |
 |-------------------|--------------|
