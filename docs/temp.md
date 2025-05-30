@@ -16,10 +16,13 @@ header-includes:
   {\large \textbf{Politehnički Fakultet}} \\[4em]
 
   {\LARGE \textbf{Seminarski Rad:}} \\[1.5em]
-  {\Large \textbf{End-to-End (E2E) testiranje u React aplikacijama koristeći Cypress}} \\[1em]
+  {\Large \textbf{End-to-End (E2E) testiranje u React aplikacijama}} \\[1em]
   {\large \textbf{Predmet: Kontrola Kvaliteta Softvera}} \\[4em]
 
   \normalsize
+
+  Profesor: Doc.dr. Nermin Goran \\[1em]
+  Asistent: Dika Bošnjak, stručnjak iz prakse \\[1em]
   Autori: Hamza Gačić, Safet Imamović \\[1em]
   Maj 2025. godine
 \end{center}
