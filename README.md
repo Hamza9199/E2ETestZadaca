@@ -7,7 +7,7 @@
 | Servis            | Port:Forward |
 |-------------------|--------------|
 | `Node` Server     | 5000:5000    |
-| `React` Frontend  | 5000:5000    |
+| `React` Frontend  | 5173:5173    |
 | `MySQL` Baza      | Deployana    |
 
 ## Pokretanje i Gasenje
