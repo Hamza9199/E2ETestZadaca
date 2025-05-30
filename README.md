@@ -1,24 +1,39 @@
-# E2ETestZadaca
+# End-to-End (E2E) testiranje u React aplikacijama
 
-Dokerizovano:
+> Projekat je Dokerizovan
+
+## Servisi 
 - Server     5000:5000
 - Frontend   5173:5173
-- MySQL Baza 3306:3306
+- MySQL Baza Deployana
+
+| Servis            | Port:Forward |
+|-------------------|--------------|
+| `Node` Server     | 5000:5000    |
+| `React` Frontend  | 5000:5000    |
+| `MySQL` Baza      | Deployana    |
 
 ## Pokretanje i Gasenje
 
-(root)
+Pokrece sve neophodne servise za aplikaciju:
+
+iz `root` projekta:
 ```bash
 docker compose up --build
 ```
-
-(root)
 ```bash
 docker compose down
 ```
 
-(root/e2e)
+Pokrece Cypress testing proces:
+
+iz `root/e2e` pokretanje cypress-a:
+
+Cypress GUI:
 ```bash
 npx cypress open 
+```
+Cypress CLI:
+```bash
 npx cypress run
 ```
