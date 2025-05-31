@@ -1,4 +1,6 @@
-const {Sequelize} = require('sequelize');
+const { Sequelize } = require('sequelize');
+
+require('dotenv').config();
 
 /*
 const sequelize = new Sequelize({
@@ -6,17 +8,17 @@ const sequelize = new Sequelize({
     storage: './database.sqlite',
     logging: false,
     retry: {
-        match: [/SQLITE_CONSTRAINT/], // Pokušaj ponovo ako naiđe na constraint
-        max: 3, // Maksimalno 3 pokušaja
+	match: [/SQLITE_CONSTRAINT/], // Pokušaj ponovo ako naiđe na constraint
+	max: 3, // Maksimalno 3 pokušaja
     },
 });
 */
 
-const sequelize = new Sequelize('defaultdb', 'avnadmin', 'AVNS_bYKnnvCQgPQoFwz-s3Q', {
-  host : 'decibel-redbullshop.h.aivencloud.com',
-  dialect : 'mysql',
-  logging : false,
-  port : '16855',
+const sequelize = new Sequelize(process.env.DB, process.env.USER, process.env.PASSWORD, {
+	host: process.env.HOST,
+	dialect: process.env.DIALECT,
+	logging: false,
+	port: process.env.PORT,
 });
 
 module.exports = sequelize;
